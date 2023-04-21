@@ -8,19 +8,21 @@ public class Tetromino : MonoBehaviour
     private float fallTime;
     private float moveTime;
 
+    private Game game;
     private Transform pivot;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         moveTime = Time.time + moveDelay;
         fallTime = Time.time + fallDelay;
 
+        // Get instance of Game object
+        game = FindAnyObjectByType<Game>();
+
         // Get Tetromino's pivot
         pivot = gameObject.transform.Find("Pivot");
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Allow the player to hold movement keys but with move delay
@@ -62,26 +64,35 @@ public class Tetromino : MonoBehaviour
             moveTime = Time.time + moveDelay;
         }
 
-        //if (!ValidMovement())
-        //{
-        //    transform.position = currentPos;
-        //}
+        if (!game.IsValidMovement(pivot))
+        {
+            transform.position = currentPos;
+        }
 
     }
 
     private void Falling()
     {
+        Vector3 currentPos = transform.position;
+
         transform.position += new Vector3(0, -1, 0);
         fallTime = Time.time + fallDelay;
+
+        if (!game.IsValidMovement(pivot))
+        {
+            transform.position = currentPos;
+        }
     }
 
     private void Rotate()
     {
         pivot.transform.Rotate(0, 0, -90);
+
+        if (!game.IsValidMovement(pivot))
+        {
+            pivot.transform.Rotate(0, 0, 90);
+        }
     }
 
-    private bool ValidMovement()
-    {
-        throw new NotImplementedException();
-    }
+    
 }
