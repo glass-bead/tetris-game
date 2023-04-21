@@ -7,7 +7,7 @@ public class Game : MonoBehaviour
     public GameObject[] tetrominoList;
     private GameObject tetromino;
 
-    private Vector3 spawnPos = new(-4f, 8f, 0f);
+    private Vector3 spawnPos = new(-5f, 8f, 0f);
 
     // Start is called before the first frame update
     void Start()
