@@ -8,6 +8,7 @@ public class Tetromino : MonoBehaviour
     private float fallTime;
     private float moveTime;
 
+    private Board board;
     private Game game;
     private Transform pivot;
     
@@ -16,11 +17,11 @@ public class Tetromino : MonoBehaviour
         moveTime = Time.time + moveDelay;
         fallTime = Time.time + fallDelay;
 
-        // Get instance of Game object
-        game = FindAnyObjectByType<Game>();
+        board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
+        game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
 
-        // Get Tetromino's pivot
-        pivot = gameObject.transform.Find("Pivot");
+        // Get tetromino's pivot
+        pivot = transform.Find("Pivot");
     }
 
     void Update()
@@ -64,7 +65,7 @@ public class Tetromino : MonoBehaviour
             moveTime = Time.time + moveDelay;
         }
 
-        if (!game.IsValidMovement(pivot))
+        if (!board.IsValidMovement(pivot))
         {
             transform.position = currentPos;
         }
@@ -78,9 +79,16 @@ public class Tetromino : MonoBehaviour
         transform.position += new Vector3(0, -1, 0);
         fallTime = Time.time + fallDelay;
 
-        if (!game.IsValidMovement(pivot))
+        if (!board.IsValidMovement(pivot))
         {
             transform.position = currentPos;
+
+            // Add tetromino to grid
+            board.AddToGrid(pivot);
+
+            // Stop movement and spawn new tetromino
+            Lock();
+            game.Spawn();
         }
     }
 
@@ -88,11 +96,15 @@ public class Tetromino : MonoBehaviour
     {
         pivot.transform.Rotate(0, 0, -90);
 
-        if (!game.IsValidMovement(pivot))
+        if (!board.IsValidMovement(pivot))
         {
             pivot.transform.Rotate(0, 0, 90);
         }
     }
 
-    
+    private void Lock()
+    {
+        this.enabled = false;
+    }
+
 }
