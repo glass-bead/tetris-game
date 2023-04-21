@@ -64,6 +64,10 @@ public class Tetromino : MonoBehaviour
             Rotate();
             moveTime = Time.time + moveDelay;
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            HardDrop();
+        }
 
         if (!board.IsValidMovement(pivot))
         {
@@ -100,6 +104,16 @@ public class Tetromino : MonoBehaviour
         {
             pivot.transform.Rotate(0, 0, 90);
         }
+    }
+
+    private void HardDrop()
+    {
+        while (board.IsValidMovement(pivot))
+        {
+            transform.position += new Vector3(0, -1, 0);
+        }
+
+        transform.position += new Vector3(0, 1, 0);
     }
 
     private void Lock()
