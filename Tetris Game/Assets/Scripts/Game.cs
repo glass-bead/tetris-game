@@ -7,13 +7,16 @@ using Random = System.Random;
 public class Game : MonoBehaviour
 { 
     public GameObject[] tetrominoList;
+
+    private GameObject currTetromino; 
+    private Board board;
     private List<int> bag, shuffledBag;
     private Vector3 spawnPos = new(4f, 18f, 0f);
 
-
-    // Start is called before the first frame update
     void Start()
     {
+        board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
+
         // Shuffle bag to generate a random 7 piece sequence
         bag = Enumerable.Range(0, tetrominoList.Length).ToList();
         ShuffleTetrominos(bag);
@@ -21,14 +24,6 @@ public class Game : MonoBehaviour
         Spawn();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        // TODO
-    }
-
-    // Spawn Tetromino on the board
     internal void Spawn() {
 
         if (shuffledBag.Count <= 0)
@@ -37,18 +32,28 @@ public class Game : MonoBehaviour
         }
 
         // Pull Tetromino from shuffled bag   
-        var currTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
+        currTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
         currTetromino.AddComponent<Tetromino>();
-
         shuffledBag.RemoveAt(0);
+
+        // Check if Tetromino spawned overlapping other pieces 
+        // or spawned outside the play zone
+        if (!board.IsValidMovement(currTetromino.transform.Find("Pivot")))
+        {
+            ToppedOut();
+        }
     }
 
     private void ShuffleTetrominos(List<int> values) 
     {
         Random rand = new Random();
         shuffledBag = values.OrderBy(_ => rand.Next()).ToList();
-
-        Debug.Log(string.Join(", ", shuffledBag));
     }
-  
+
+    private void ToppedOut()
+    {
+        Debug.Log("Game Over");
+        Destroy(currTetromino);
+    }
+
 }
