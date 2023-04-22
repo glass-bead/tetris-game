@@ -10,10 +10,13 @@ public class Tetromino : MonoBehaviour
 
     private Board board;
     private Game game;
+    private Ghost ghost;
     private Transform pivot;
     
     void Start()
     {
+        gameObject.tag = "Tetromino";
+
         moveTime = Time.time + moveDelay;
         fallTime = Time.time + fallDelay;
         lockTime = 0f;
@@ -23,6 +26,7 @@ public class Tetromino : MonoBehaviour
 
         // Get Tetromino's pivot
         pivot = transform.Find("Pivot");
+
     }
 
     void Update()
@@ -123,6 +127,7 @@ public class Tetromino : MonoBehaviour
     {
         board.AddToGrid(pivot);
         board.CheckForLines();
+        GameObject.FindGameObjectWithTag("Ghost").GetComponent<Ghost>().DestroyGhost();
         enabled = false;
         game.Spawn();
     }

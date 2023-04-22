@@ -34,6 +34,9 @@ public class Game : MonoBehaviour
         // Pull Tetromino from shuffled bag   
         currTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
         currTetromino.AddComponent<Tetromino>();
+
+        CreateGhost();
+
         shuffledBag.RemoveAt(0);
 
         // Check if Tetromino spawned overlapping other pieces 
@@ -54,6 +57,12 @@ public class Game : MonoBehaviour
     {
         Debug.Log("Game Over");
         Destroy(currTetromino);
+    }
+
+    internal void CreateGhost()
+    {
+        var ghostTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
+        ghostTetromino.AddComponent<Ghost>();
     }
 
 }
