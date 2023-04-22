@@ -1,15 +1,23 @@
-using System.Collections;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class Game : MonoBehaviour
 { 
     public GameObject[] tetrominoList;
+    private List<int> bag, shuffledBag;
     private Vector3 spawnPos = new(4f, 18f, 0f);
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
+        // Shuffle bag to generate a random 7 piece sequence
+        bag = Enumerable.Range(0, tetrominoList.Length).ToList();
+        ShuffleTetrominos(bag);
+
         Spawn();
     }
 
@@ -23,12 +31,24 @@ public class Game : MonoBehaviour
     // Spawn Tetromino on the board
     internal void Spawn() {
 
-        // Select random Tetromino to spawn from Tetrominos' list
-        int spawnIndex = Random.Range(0, 6);
+        if (shuffledBag.Count <= 0)
+        {
+            ShuffleTetrominos(bag);
+        }
 
-        // Instantiate Tetromino
-        var currTetromino = Instantiate(tetrominoList[spawnIndex], spawnPos, Quaternion.identity);
+        // Pull Tetromino from shuffled bag   
+        var currTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
         currTetromino.AddComponent<Tetromino>();
+
+        shuffledBag.RemoveAt(0);
+    }
+
+    private void ShuffleTetrominos(List<int> values) 
+    {
+        Random rand = new Random();
+        shuffledBag = values.OrderBy(_ => rand.Next()).ToList();
+
+        Debug.Log(string.Join(", ", shuffledBag));
     }
   
 }
