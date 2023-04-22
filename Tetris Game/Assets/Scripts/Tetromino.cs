@@ -59,7 +59,7 @@ public class Tetromino : MonoBehaviour
             transform.position += new Vector3(0, -1, 0);
             moveTime = Time.time + moveDelay / 2;
         }
-        else if (Input.GetKey(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Rotate();
             moveTime = Time.time + moveDelay;
@@ -87,12 +87,8 @@ public class Tetromino : MonoBehaviour
         {
             transform.position = currentPos;
 
-            // Add tetromino to grid
-            board.AddToGrid(pivot);
-
-            // Stop movement and spawn new tetromino
+            // Stop movement
             Lock();
-            game.Spawn();
         }
     }
 
@@ -118,7 +114,10 @@ public class Tetromino : MonoBehaviour
 
     private void Lock()
     {
-        this.enabled = false;
+        board.AddToGrid(pivot);
+        board.CheckForLines();
+        enabled = false;
+        game.Spawn();
     }
 
 }
