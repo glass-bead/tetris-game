@@ -20,13 +20,13 @@ public class Game : MonoBehaviour
         // TODO
     }
 
-    // Spawn tetromino on the board
+    // Spawn Tetromino on the board
     internal void Spawn() {
 
-        // Select random tetromino to spawn from tetrominos' list
+        // Select random Tetromino to spawn from Tetrominos' list
         int spawnIndex = Random.Range(0, 6);
 
-        // Instantiate tetromino
+        // Instantiate Tetromino
         var currTetromino = Instantiate(tetrominoList[spawnIndex], spawnPos, Quaternion.identity);
         currTetromino.AddComponent<Tetromino>();
     }

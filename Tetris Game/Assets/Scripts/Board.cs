@@ -8,7 +8,6 @@ public class Board : MonoBehaviour
     private static readonly int width = 10, height = 20;
     private static Transform[,] grid = new Transform[width, height];
 
-
     internal void AddToGrid(Transform pivot)
     {
         foreach (Transform children in pivot.transform)

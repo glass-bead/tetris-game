@@ -5,8 +5,8 @@ public class Tetromino : MonoBehaviour
 {
     private const float fallDelay = 0.8f;
     private const float moveDelay = 0.1f;
-    private float fallTime;
-    private float moveTime;
+    private const float lockDelay = 0.5f;
+    private float fallTime, moveTime, lockTime;
 
     private Board board;
     private Game game;
@@ -16,23 +16,27 @@ public class Tetromino : MonoBehaviour
     {
         moveTime = Time.time + moveDelay;
         fallTime = Time.time + fallDelay;
+        lockTime = 0f;
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
 
-        // Get tetromino's pivot
+        // Get Tetromino's pivot
         pivot = transform.Find("Pivot");
     }
 
     void Update()
     {
+        // Give the player half a second to move the tetromino before locking
+        lockTime += Time.deltaTime;
+        
         // Allow the player to hold movement keys but with move delay
         if (Time.time > moveTime)
         {
             HandleUserInputs();
         }
 
-        // Move tetromino down every x seconds
+        // Move Tetromino down every x seconds
         if (Time.time > fallTime && !Input.GetKey(KeyCode.DownArrow))
         {
             Falling();
@@ -87,8 +91,11 @@ public class Tetromino : MonoBehaviour
         {
             transform.position = currentPos;
 
-            // Stop movement
-            Lock();
+            // Half second lock delay
+            if (lockTime >= lockDelay)
+            {
+                Lock();
+            }
         }
     }
 
