@@ -41,7 +41,7 @@ public class Tetromino : MonoBehaviour
         }
 
         // Move Tetromino down every x seconds
-        if (Time.time > fallTime && !Input.GetKey(KeyCode.DownArrow))
+        if (Time.time > fallTime)
         {
             Falling();
         }
@@ -81,7 +81,7 @@ public class Tetromino : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            HardDrop();
+            HardDrop(); 
         }
 
         if (!board.IsValidMovement(pivot))
@@ -101,12 +101,7 @@ public class Tetromino : MonoBehaviour
         if (!board.IsValidMovement(pivot))
         {
             transform.position = currentPos;
-
-            // Half second lock delay
-            if (lockTime >= lockDelay)
-            {
-                Lock();
-            }
+            Lock();
         }
     }
 
@@ -130,6 +125,7 @@ public class Tetromino : MonoBehaviour
 
         transform.position += new Vector3(0, 1, 0);
         scoreboard.UpdateScore(-10);
+        fallTime = Time.time + moveDelay;
     }
 
     private void Lock()
