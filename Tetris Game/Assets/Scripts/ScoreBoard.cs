@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class ScoreBoard : MonoBehaviour
+{
+    private int score = 0;
+    private int level = 1;
+    private int lines = 0;
+
+    public TextMeshProUGUI scoreGUI;
+    public TextMeshProUGUI levelGUI;
+    public TextMeshProUGUI linesGUI;
+
+    // Update score
+    internal void UpdateScore(int value)
+    {
+        score += value;
+        scoreGUI.text = score.ToString();
+    }
+
+    // Update level
+    private void UpdateLevel()
+    {
+        level++;
+        levelGUI.text = level.ToString();
+    }
+
+    // Update lines counter
+    internal void UpdateLines()
+    {
+        lines++;
+        linesGUI.text = lines.ToString();
+        
+        UpdateScore(200);
+
+        if ((lines % 10) == 0)
+        {
+            UpdateLevel();
+        }
+    }
+}

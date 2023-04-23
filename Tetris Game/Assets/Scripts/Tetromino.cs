@@ -10,6 +10,7 @@ public class Tetromino : MonoBehaviour
 
     private Board board;
     private Game game;
+    private ScoreBoard scoreboard;
     private Transform pivot;
     
     void Start()
@@ -22,6 +23,7 @@ public class Tetromino : MonoBehaviour
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
+        scoreboard = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreBoard>();
 
         // Get Tetromino's pivot
         pivot = transform.Find("Pivot");
@@ -63,7 +65,14 @@ public class Tetromino : MonoBehaviour
         else if (Input.GetKey(KeyCode.DownArrow)) 
         {
             transform.position += new Vector3(0, -1, 0);
+            scoreboard.UpdateScore(1);
             moveTime = Time.time + moveDelay / 2;
+
+            if (!board.IsValidMovement(pivot))
+            {
+                scoreboard.UpdateScore(-1);
+                transform.position = currentPos;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -116,22 +125,27 @@ public class Tetromino : MonoBehaviour
         while (board.IsValidMovement(pivot))
         {
             transform.position += new Vector3(0, -1, 0);
+            scoreboard.UpdateScore(10);
         }
 
         transform.position += new Vector3(0, 1, 0);
+        scoreboard.UpdateScore(-10);
     }
 
     private void Lock()
     {
+        // Update grid and check for lines
         board.AddToGrid(pivot);
         board.CheckForLines();
 
         gameObject.tag = "Untagged";
 
+        // Destroy ghost tetromino 
         GameObject.FindGameObjectWithTag("Ghost").GetComponent<Ghost>().DestroyGhost();
 
         enabled = false;
 
+        // Spawn the next piece
         game.RemoveNext();
         game.Spawn();
     }

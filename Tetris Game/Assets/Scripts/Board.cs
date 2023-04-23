@@ -8,6 +8,13 @@ public class Board : MonoBehaviour
     private static readonly int width = 10, height = 20;
     private static Transform[,] grid = new Transform[width, height];
 
+    private ScoreBoard scoreboard;
+
+    private void Start()
+    {
+        scoreboard = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreBoard>();
+    }
+
     internal void AddToGrid(Transform pivot)
     {
         foreach (Transform children in pivot.transform)
@@ -59,6 +66,8 @@ public class Board : MonoBehaviour
             Destroy(grid[x, y].gameObject);
             grid[x, y] = null;
         }
+
+        scoreboard.UpdateLines();
     }
 
     private void RowDown(int line)
