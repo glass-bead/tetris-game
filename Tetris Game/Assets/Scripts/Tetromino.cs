@@ -10,7 +10,6 @@ public class Tetromino : MonoBehaviour
 
     private Board board;
     private Game game;
-    private Ghost ghost;
     private Transform pivot;
     
     void Start()
@@ -26,7 +25,6 @@ public class Tetromino : MonoBehaviour
 
         // Get Tetromino's pivot
         pivot = transform.Find("Pivot");
-
     }
 
     void Update()
@@ -125,7 +123,6 @@ public class Tetromino : MonoBehaviour
 
     private void Lock()
     {
-        
         board.AddToGrid(pivot);
         board.CheckForLines();
 
@@ -134,6 +131,8 @@ public class Tetromino : MonoBehaviour
         GameObject.FindGameObjectWithTag("Ghost").GetComponent<Ghost>().DestroyGhost();
 
         enabled = false;
+
+        game.RemoveNext();
         game.Spawn();
     }
 

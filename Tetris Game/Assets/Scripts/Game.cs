@@ -8,10 +8,11 @@ public class Game : MonoBehaviour
 { 
     public GameObject[] tetrominoList;
 
-    private GameObject currTetromino; 
+    private GameObject currTetromino, nextTetromino, ghostTetromino;
     private Board board;
     private List<int> bag, shuffledBag;
     private Vector3 spawnPos = new(4f, 18f, 0f);
+    private Vector3 nextPos = new(13f, 2f, 0f);
 
     void Start()
     {
@@ -36,8 +37,15 @@ public class Game : MonoBehaviour
         currTetromino.AddComponent<Tetromino>();
 
         CreateGhost();
-
         shuffledBag.RemoveAt(0);
+
+        if (shuffledBag.Count <= 0)
+        {
+            ShuffleTetrominos(bag);
+        }
+
+        nextTetromino = Instantiate(tetrominoList[shuffledBag[0]]);
+        nextTetromino.transform.Find("Pivot").position = nextPos;
 
         // Check if Tetromino spawned overlapping other pieces 
         // or spawned outside the play zone
@@ -57,12 +65,19 @@ public class Game : MonoBehaviour
     {
         Debug.Log("Game Over");
         Destroy(currTetromino);
+        Destroy(ghostTetromino);
+        Destroy(nextTetromino);
     }
 
-    internal void CreateGhost()
+    private void CreateGhost()
     {
-        var ghostTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
+        ghostTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
         ghostTetromino.AddComponent<Ghost>();
+    }
+
+    internal void RemoveNext()
+    {
+        Destroy(nextTetromino);
     }
 
 }
