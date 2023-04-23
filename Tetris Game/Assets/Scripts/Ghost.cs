@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    Board board;
+    private Board board;
+    public Tetromino tetromino;
     private Transform pivot;
 
     // Start is called before the first frame update
@@ -14,6 +15,7 @@ public class Ghost : MonoBehaviour
         gameObject.tag = "Ghost";
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
+        tetromino = GameObject.FindGameObjectWithTag("Tetromino").GetComponent<Tetromino>();
         pivot = transform.Find("Pivot");
 
         ChangeColor();
@@ -21,7 +23,23 @@ public class Ghost : MonoBehaviour
 
     void LateUpdate()
     {
+        Reflect();
         Drop();
+    }
+
+    private void Reflect()
+    {
+        // Move Ghost to same position as Tetromino
+        transform.position = tetromino.transform.position;
+
+        // Rotate Ghost to same angle as Tetromino
+        float tetrominoRotation = tetromino.transform.Find("Pivot").transform.eulerAngles.z;
+
+        if (tetrominoRotation >= 180) { 
+            tetrominoRotation -= 360f; 
+        }
+
+        pivot.transform.rotation = Quaternion.Euler(0f, 0f, tetrominoRotation);
     }
 
     private void Drop()
@@ -38,7 +56,9 @@ public class Ghost : MonoBehaviour
     {
         foreach (Transform child in pivot.transform)
         {
-            child.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.15f);
+            Color childColor = child.GetComponent<SpriteRenderer>().color;
+            childColor.a = 0.15f;
+            child.GetComponent<SpriteRenderer>().color = childColor;
         }
     }
 
