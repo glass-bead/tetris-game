@@ -7,7 +7,7 @@ using Random = System.Random;
 public class Game : MonoBehaviour
 { 
     [SerializeField] GameObject[] tetrominoList;
-    [SerializeField] GameObject gamePanel, gameoverPanel, pauseButton, score, level, lines;
+    [SerializeField] GameObject gamePanel, gameoverPanel, pausePanel, pauseButton, score, level, lines;
     [SerializeField] Tweening tween;
 
     private GameObject currTetromino, nextTetromino, ghostTetromino;
@@ -16,6 +16,8 @@ public class Game : MonoBehaviour
    
     private Vector3 spawnPos = new(4f, 18f, 0f);
     private Vector3 nextPos = new(13.5f, 16.5f, 0f);
+
+    public bool isPaused = false;
 
     void Start()
     {
@@ -94,6 +96,30 @@ public class Game : MonoBehaviour
         ShuffleTetrominos(bag);
 
         Spawn();
+    }
+
+    public void PauseButton()
+    {
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+            isPaused = true;
+
+            // Show Pause screen
+            pausePanel.SetActive(true);
+        }
+    }
+
+    public void ResumeButton()
+    {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            isPaused = false;
+
+            // Hide Pause screen
+            pausePanel.SetActive(false);
+        }
     }
 
 }

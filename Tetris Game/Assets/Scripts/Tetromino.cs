@@ -35,7 +35,7 @@ public class Tetromino : MonoBehaviour
         lockTime += Time.deltaTime;
         
         // Allow the player to hold movement keys but with move delay
-        if (Time.time > moveTime)
+        if (Time.time > moveTime && game.isPaused == false)
         {
             HandleUserInputs();
         }

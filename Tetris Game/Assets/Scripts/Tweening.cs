@@ -6,8 +6,9 @@ public class Tweening : MonoBehaviour
 {
     [SerializeField] GameObject playButton, optionsButton, htpButton, quitButton;
     [SerializeField] GameObject playAgainButton, options2Button, quit2Button;
+    [SerializeField] GameObject resumeButton, options3Button, quit3Button;
     [SerializeField] GameObject score, level, lines;
-    [SerializeField] GameObject title, subtitle, gameOver;
+    [SerializeField] GameObject title, subtitle, gameOver, pause;
 
     private void Start()
     {
@@ -24,7 +25,6 @@ public class Tweening : MonoBehaviour
         LeanTween.scale(score, new Vector3(1f, 1f, 1f), 1f).setDelay(2.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(level, new Vector3(1f, 1f, 1f), 1f).setDelay(2.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(lines, new Vector3(1f, 1f, 1f), 1f).setDelay(2.5f).setEase(LeanTweenType.easeInOutCubic);
-
     }
 
     internal void GameOver()
@@ -33,6 +33,14 @@ public class Tweening : MonoBehaviour
         LeanTween.scale(options2Button, new Vector3(.5f, .5f, 1f), 1f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(quit2Button, new Vector3(.5f, .5f, 1f), 1f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(gameOver, new Vector3(.9f, .9f, 1f), .7f).setLoopPingPong();
+    }
+
+    internal void PauseMenu()
+    {
+        LeanTween.scale(resumeButton, new Vector3(.5f, .5f, 1f), 1f).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.scale(options3Button, new Vector3(.5f, .5f, 1f), 1f).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.scale(quit3Button, new Vector3(.5f, .5f, 1f), 1f).setEase(LeanTweenType.easeInOutCubic);
+        LeanTween.scale(pause, new Vector3(.9f, .9f, 1f), .7f).setLoopPingPong();
     }
 
     public void OnPointerEnter(GameObject button) 
