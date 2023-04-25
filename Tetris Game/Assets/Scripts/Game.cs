@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
 { 
     [SerializeField] GameObject[] tetrominoList;
     [SerializeField] GameObject gamePanel, gameoverPanel, pausePanel, pauseButton, score, level, lines;
+    [SerializeField] GameObject gameOverTitle, pauseTitle;
     [SerializeField] Tweening tween;
 
     private GameObject currTetromino, nextTetromino, ghostTetromino;
@@ -62,18 +63,6 @@ public class Game : MonoBehaviour
         shuffledBag = values.OrderBy(_ => rand.Next()).ToList();
     }
 
-    private void ToppedOut()
-    {
-        Debug.Log("Game Over");
-        Destroy(currTetromino);
-        Destroy(ghostTetromino);
-        Destroy(nextTetromino);
-
-        // Show Game Over screen
-        gameoverPanel.SetActive(true);
-        tween.GameOver();
-    }
-
     private void CreateGhost()
     {
         ghostTetromino = Instantiate(tetrominoList[shuffledBag[0]], spawnPos, Quaternion.identity);
@@ -83,6 +72,20 @@ public class Game : MonoBehaviour
     internal void RemoveNext()
     {
         Destroy(nextTetromino);
+    }
+
+    private void ToppedOut()
+    {
+        Destroy(currTetromino);
+        Destroy(ghostTetromino);
+        Destroy(nextTetromino);
+
+        board.CleanGrid();
+
+        // Show Game Over screen
+        gameoverPanel.SetActive(true);
+        pauseButton.SetActive(false);
+        tween.PulsatingTitle(gameOverTitle);
     }
 
     public void PlayButton()
@@ -102,33 +105,21 @@ public class Game : MonoBehaviour
 
     public void PauseButton()
     {
-        if (Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
-            isPaused = true;
-
-            // Show Pause screen
-            pausePanel.SetActive(true);
-        }
+        isPaused = true;
+        pausePanel.SetActive(true);
+        pauseButton.SetActive(false);
+        tween.PulsatingTitle(pauseTitle);
     }
 
     public void ResumeButton()
     {
-        if (Time.timeScale == 0)
-        {
-            Time.timeScale = 1;
-            isPaused = false;
-
-            // Hide Pause screen
-            pausePanel.SetActive(false);
-        }
+        isPaused = false;
+        pausePanel.SetActive(false);
+        pauseButton.SetActive(true);
     }
 
     public void PlayAgainButton()
     {
-        // Show Game Over screen
-        gameoverPanel.SetActive(false);
-
         // Destroy all existing tetrominos
         GameObject[] tetrominosToDelete = GameObject.FindGameObjectsWithTag("Tetromino");
         foreach (GameObject tetromino in tetrominosToDelete) {
@@ -137,6 +128,14 @@ public class Game : MonoBehaviour
 
         // Restart scoreboard values
         scoreboard.RestartValues();
+
+        // Hide Game Over screen
+        gameoverPanel.SetActive(false);
+        gamePanel.SetActive(true);
+
+        // Shuffle bag to generate a random 7 piece sequence
+        bag = Enumerable.Range(0, tetrominoList.Length).ToList();
+        ShuffleTetrominos(bag);
 
         Spawn();
     }

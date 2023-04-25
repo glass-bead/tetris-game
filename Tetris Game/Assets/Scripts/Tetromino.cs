@@ -41,7 +41,7 @@ public class Tetromino : MonoBehaviour
         }
 
         // Move Tetromino down every x seconds
-        if (Time.time > fallTime)
+        if (Time.time > fallTime && game.isPaused == false)
         {
             Falling();
         }

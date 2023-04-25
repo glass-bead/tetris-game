@@ -26,6 +26,11 @@ public class Board : MonoBehaviour
         }
     }
 
+    internal void CleanGrid()
+    {
+        grid = new Transform[width, height];
+    }
+
     internal void CheckForLines()
     {
         bool _foundLines = false;
