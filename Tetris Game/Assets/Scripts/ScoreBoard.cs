@@ -40,4 +40,15 @@ public class ScoreBoard : MonoBehaviour
             UpdateLevel();
         }
     }
+
+    internal void RestartValues()
+    {
+        score = 0;
+        level = 1;
+        lines = 0;
+
+        scoreGUI.text = score.ToString();
+        levelGUI.text = level.ToString();
+        linesGUI.text = lines.ToString();
+    }
 }

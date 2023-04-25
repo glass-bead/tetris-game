@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
     [SerializeField] Tweening tween;
 
     private GameObject currTetromino, nextTetromino, ghostTetromino;
+    private ScoreBoard scoreboard;
     private Board board;
     private List<int> bag, shuffledBag;
    
@@ -21,7 +22,8 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();   
+        board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
+        scoreboard = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreBoard>();
     }
 
     internal void Spawn() {
@@ -120,6 +122,23 @@ public class Game : MonoBehaviour
             // Hide Pause screen
             pausePanel.SetActive(false);
         }
+    }
+
+    public void PlayAgainButton()
+    {
+        // Show Game Over screen
+        gameoverPanel.SetActive(false);
+
+        // Destroy all existing tetrominos
+        GameObject[] tetrominosToDelete = GameObject.FindGameObjectsWithTag("Tetromino");
+        foreach (GameObject tetromino in tetrominosToDelete) {
+            Destroy(tetromino);
+        }
+
+        // Restart scoreboard values
+        scoreboard.RestartValues();
+
+        Spawn();
     }
 
 }

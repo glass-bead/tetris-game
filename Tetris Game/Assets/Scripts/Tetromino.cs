@@ -15,7 +15,7 @@ public class Tetromino : MonoBehaviour
     
     void Start()
     {
-        gameObject.tag = "Tetromino";
+        gameObject.tag = "FallingTetromino";
 
         moveTime = Time.time + moveDelay;
         fallTime = Time.time + fallDelay;
@@ -134,7 +134,7 @@ public class Tetromino : MonoBehaviour
         board.AddToGrid(pivot);
         board.CheckForLines();
 
-        gameObject.tag = "Untagged";
+        gameObject.tag = "Tetromino";
 
         // Destroy ghost tetromino 
         GameObject.FindGameObjectWithTag("Ghost").GetComponent<Ghost>().DestroyGhost();

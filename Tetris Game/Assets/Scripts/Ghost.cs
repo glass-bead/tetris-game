@@ -15,7 +15,7 @@ public class Ghost : MonoBehaviour
         gameObject.tag = "Ghost";
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
-        tetromino = GameObject.FindGameObjectWithTag("Tetromino").GetComponent<Tetromino>();
+        tetromino = GameObject.FindGameObjectWithTag("FallingTetromino").GetComponent<Tetromino>();
         pivot = transform.Find("Pivot");
 
         ChangeColor();
