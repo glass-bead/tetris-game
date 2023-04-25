@@ -5,8 +5,7 @@ public class Tetromino : MonoBehaviour
 {
     private const float fallDelay = 0.8f;
     private const float moveDelay = 0.1f;
-    private const float lockDelay = 0.5f;
-    private float fallTime, moveTime, lockTime;
+    private float fallTime, moveTime;
 
     private Board board;
     private Game game;
@@ -19,7 +18,6 @@ public class Tetromino : MonoBehaviour
 
         moveTime = Time.time + moveDelay;
         fallTime = Time.time + fallDelay;
-        lockTime = 0f;
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
@@ -31,9 +29,6 @@ public class Tetromino : MonoBehaviour
 
     void Update()
     {
-        // Give the player half a second to move the tetromino before locking
-        lockTime += Time.deltaTime;
-        
         // Allow the player to hold movement keys but with move delay
         if (Time.time > moveTime && game.isPaused == false)
         {

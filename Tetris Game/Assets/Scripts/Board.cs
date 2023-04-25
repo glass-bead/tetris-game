@@ -5,15 +5,10 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField] ScoreBoard scoreboard;
+
     private static readonly int width = 10, height = 20;
     private static Transform[,] grid = new Transform[width, height];
-
-    private ScoreBoard scoreboard;
-
-    private void Start()
-    {
-        scoreboard = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreBoard>();
-    }
 
     internal void AddToGrid(Transform pivot)
     {

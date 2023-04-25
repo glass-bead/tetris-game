@@ -10,10 +10,10 @@ public class Game : MonoBehaviour
     [SerializeField] GameObject gamePanel, gameoverPanel, pausePanel, pauseButton, score, level, lines;
     [SerializeField] GameObject gameOverTitle, pauseTitle;
     [SerializeField] Tweening tween;
+    [SerializeField] ScoreBoard scoreboard;
+    [SerializeField] Board board;
 
     private GameObject currTetromino, nextTetromino, ghostTetromino;
-    private ScoreBoard scoreboard;
-    private Board board;
     private List<int> bag, shuffledBag;
    
     private Vector3 spawnPos = new(4f, 18f, 0f);
@@ -21,10 +21,13 @@ public class Game : MonoBehaviour
 
     public bool isPaused = false;
 
-    void Start()
+    private void BeginGame()
     {
-        board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
-        scoreboard = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreBoard>();
+        // Shuffle bag to generate a random 7 piece sequence
+        bag = Enumerable.Range(0, tetrominoList.Length).ToList();
+        ShuffleTetrominos(bag);
+
+        Spawn();
     }
 
     internal void Spawn() {
@@ -96,11 +99,7 @@ public class Game : MonoBehaviour
         level.SetActive(true);
         lines.SetActive(true);
 
-        // Shuffle bag to generate a random 7 piece sequence
-        bag = Enumerable.Range(0, tetrominoList.Length).ToList();
-        ShuffleTetrominos(bag);
-
-        Spawn();
+        BeginGame();
     }
 
     public void PauseButton()
@@ -131,13 +130,21 @@ public class Game : MonoBehaviour
 
         // Hide Game Over screen
         gameoverPanel.SetActive(false);
-        gamePanel.SetActive(true);
+        pauseButton.SetActive(true);
 
-        // Shuffle bag to generate a random 7 piece sequence
-        bag = Enumerable.Range(0, tetrominoList.Length).ToList();
-        ShuffleTetrominos(bag);
-
-        Spawn();
+        BeginGame();
     }
+
+    //// TODO
+    //public void OptionsButton()
+    //{
+
+    //}
+
+    //// TODO
+    //public void QuitButton()
+    //{ 
+
+    //}
 
 }
