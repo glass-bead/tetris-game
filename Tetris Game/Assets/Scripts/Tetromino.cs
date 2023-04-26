@@ -31,7 +31,7 @@ public class Tetromino : MonoBehaviour
 
     void Update()
     {
-        // Allow the player to hold movement keys but with move delay
+        // Allow the player to hold movement keys but with move     delay
         if (Time.time > moveTime && game.isPaused == false)
         {
             HandleUserInputs();
@@ -145,8 +145,8 @@ public class Tetromino : MonoBehaviour
         enabled = false;
 
         // Spawn the next piece
-        game.RemoveNext();
-        game.Spawn();
+        board.RemoveNext();
+        board.Spawn();
     }
 
 }

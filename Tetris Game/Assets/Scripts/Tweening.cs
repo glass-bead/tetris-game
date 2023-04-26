@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tweening : MonoBehaviour
 {
-    [SerializeField] GameObject playButton, optionsButton, htpButton, quitButton;
+    [SerializeField] GameObject playButton, htpButton, quitButton;
     [SerializeField] GameObject playAgainButton, options2Button, quit2Button;
     [SerializeField] GameObject resumeButton, options3Button, quit3Button;
     [SerializeField] GameObject score, level, lines;
@@ -18,7 +18,6 @@ public class Tweening : MonoBehaviour
         LeanTween.scale(title, new Vector3(1f, 1f, 1f), 2f).setDelay(1.7f).setEase(LeanTweenType.easeInOutCubic);
 
         LeanTween.scale(playButton, new Vector3(.5f, .5f, 1f), 1f).setDelay(2.3f).setEase(LeanTweenType.easeInOutCubic);
-        LeanTween.scale(optionsButton, new Vector3(.5f, .5f, 1f), 1f).setDelay(2.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(htpButton, new Vector3(.5f, .5f, 1f), 1f).setDelay(2.5f).setEase(LeanTweenType.easeInOutCubic);
         LeanTween.scale(quitButton, new Vector3(.5f, .5f, 1f), 1f).setDelay(2.5f).setEase(LeanTweenType.easeInOutCubic);
 

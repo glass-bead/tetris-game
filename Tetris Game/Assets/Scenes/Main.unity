@@ -1007,7 +1007,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 255877804}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1945051728}
+        m_TargetAssemblyTypeName: Game, Assembly-CSharp
+        m_MethodName: MainMenuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &255877804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1815,13 +1827,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: move
     clip: {fileID: 8300000, guid: 251c2ff48f705974394a7d9050f61e6a, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: rotate
     clip: {fileID: 8300000, guid: b6848209820b3bd4a8b97eb12a86bc4b, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -1833,25 +1845,25 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: locking
     clip: {fileID: 8300000, guid: 28b17c5ea3ff3a946adb735b72a914e0, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: pause
     clip: {fileID: 8300000, guid: 197e538f6be94094496b3cc6c7d852dd, type: 3}
-    volume: 1
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: clean line
     clip: {fileID: 8300000, guid: d7b82b0316912c141ba835c577f73c41, type: 3}
-    volume: 1
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: game over
     clip: {fileID: 8300000, guid: 4553f2688c7fe6748a3f2aff0d8b9796, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -2608,7 +2620,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1041340305}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1945051728}
+        m_TargetAssemblyTypeName: Game, Assembly-CSharp
+        m_MethodName: MainMenuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1041340305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5465,7 +5489,6 @@ MonoBehaviour:
   gameOverTitle: {fileID: 70115522}
   pauseTitle: {fileID: 10535195}
   tween: {fileID: 677944315}
-  scoreboard: {fileID: 451419866}
   board: {fileID: 17924299}
   audioManager: {fileID: 802664866}
   isPaused: 0
@@ -5542,7 +5565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: quit
+  m_text: main menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 60f67c16ada7b8b468f8e91fb5582437, type: 2}
   m_sharedMaterial: {fileID: -1929062109665371333, guid: 60f67c16ada7b8b468f8e91fb5582437, type: 2}
