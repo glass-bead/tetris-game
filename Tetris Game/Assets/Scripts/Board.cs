@@ -6,6 +6,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [SerializeField] ScoreBoard scoreboard;
+    [SerializeField] AudioManager audioManager;
 
     private static readonly int width = 10, height = 20;
     private static Transform[,] grid = new Transform[width, height];
@@ -68,6 +69,7 @@ public class Board : MonoBehaviour
         }
 
         scoreboard.UpdateLines();
+        audioManager.PlaySound("clean line");
     }
 
     private void RowDown(int line)

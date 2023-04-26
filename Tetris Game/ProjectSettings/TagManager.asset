@@ -9,6 +9,7 @@ TagManager:
   - Ghost
   - ScoreBoard
   - FallingTetromino
+  - Audio
   layers:
   - Default
   - TransparentFX

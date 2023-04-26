@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     [SerializeField] Tweening tween;
     [SerializeField] ScoreBoard scoreboard;
     [SerializeField] Board board;
+    [SerializeField] AudioManager audioManager;
 
     private GameObject currTetromino, nextTetromino, ghostTetromino;
     private List<int> bag, shuffledBag;
@@ -23,6 +24,8 @@ public class Game : MonoBehaviour
 
     private void BeginGame()
     {
+        audioManager.PlaySound("theme");
+
         // Shuffle bag to generate a random 7 piece sequence
         bag = Enumerable.Range(0, tetrominoList.Length).ToList();
         ShuffleTetrominos(bag);
@@ -79,6 +82,9 @@ public class Game : MonoBehaviour
 
     private void ToppedOut()
     {
+        audioManager.StopSound("theme");
+        audioManager.PlaySound("game over");
+        
         Destroy(currTetromino);
         Destroy(ghostTetromino);
         Destroy(nextTetromino);
@@ -104,6 +110,8 @@ public class Game : MonoBehaviour
 
     public void PauseButton()
     {
+        audioManager.PauseSound("theme");
+        audioManager.PlaySound("pause");
         isPaused = true;
         pausePanel.SetActive(true);
         pauseButton.SetActive(false);
@@ -112,6 +120,8 @@ public class Game : MonoBehaviour
 
     public void ResumeButton()
     {
+        audioManager.PauseSound("pause");
+        audioManager.PlaySound("theme");
         isPaused = false;
         pausePanel.SetActive(false);
         pauseButton.SetActive(true);

@@ -10,6 +10,7 @@ public class Tetromino : MonoBehaviour
     private Board board;
     private Game game;
     private ScoreBoard scoreboard;
+    private AudioManager audioManager;
     private Transform pivot;
     
     void Start()
@@ -22,6 +23,7 @@ public class Tetromino : MonoBehaviour
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
         scoreboard = GameObject.FindGameObjectWithTag("ScoreBoard").GetComponent<ScoreBoard>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
 
         // Get Tetromino's pivot
         pivot = transform.Find("Pivot");
@@ -49,16 +51,19 @@ public class Tetromino : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            audioManager.PlaySound("move");
             transform.position += new Vector3(-1, 0, 0);
             moveTime = Time.time + moveDelay;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
+            audioManager.PlaySound("move");
             transform.position += new Vector3(1, 0, 0);
             moveTime = Time.time + moveDelay;
         }
         else if (Input.GetKey(KeyCode.DownArrow)) 
         {
+            audioManager.PlaySound("soft drop");
             transform.position += new Vector3(0, -1, 0);
             scoreboard.UpdateScore(1);
             moveTime = Time.time + moveDelay / 2;
@@ -102,6 +107,7 @@ public class Tetromino : MonoBehaviour
 
     private void Rotate()
     {
+        audioManager.PlaySound("rotate");
         pivot.transform.Rotate(0, 0, -90);
 
         if (!board.IsValidMovement(pivot))
@@ -125,6 +131,8 @@ public class Tetromino : MonoBehaviour
 
     private void Lock()
     {
+        audioManager.PlaySound("locking");
+
         // Update grid and check for lines
         board.AddToGrid(pivot);
         board.CheckForLines();
