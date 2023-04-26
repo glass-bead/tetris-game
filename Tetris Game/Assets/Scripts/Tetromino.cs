@@ -83,6 +83,14 @@ public class Tetromino : MonoBehaviour
         {
             HardDrop(); 
         }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            game.PauseButton();
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            audioManager.ChangeSound();
+        }
 
         if (!board.IsValidMovement(pivot))
         {

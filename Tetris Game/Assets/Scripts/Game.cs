@@ -5,12 +5,12 @@ using UnityEngine;
 using Random = System.Random;
 
 public class Game : MonoBehaviour
-{ 
-    
+{  
     [SerializeField] GameObject gamePanel, gameoverPanel, pausePanel, htpPanel, pauseButton, score, level, lines;
     [SerializeField] GameObject gameOverTitle, pauseTitle;
     [SerializeField] Tweening tween;
     [SerializeField] Board board;
+    [SerializeField] ScoreBoard scoreboard;
     [SerializeField] AudioManager audioManager;
 
     public bool isPaused = false;
@@ -64,6 +64,7 @@ public class Game : MonoBehaviour
     public void PlayAgainButton()
     {
         audioManager.PlaySound("theme");
+        scoreboard.RestartValues();
         gameoverPanel.SetActive(false);
         pauseButton.SetActive(true);
         board.BeginGame();
@@ -87,6 +88,7 @@ public class Game : MonoBehaviour
         audioManager.PlaySound("main menu");
         isPaused = false;
         board.CleanBoard();
+        scoreboard.RestartValues();
         gameoverPanel.SetActive(false);
         pausePanel.SetActive(false);
         gamePanel.SetActive(true);
