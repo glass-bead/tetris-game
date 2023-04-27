@@ -3843,7 +3843,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Move Right\nMove Left\nRotate\nSoft Drop\nHard Drop\nPause \n"
+  m_text: "Move Right\nMove Left\nRotate\nSoft Drop\nHard Drop\nPause \nMute/Unmute\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: baa69047a08a3e64891d14a22487ecd2, type: 2}
   m_sharedMaterial: {fileID: -4723049940478326369, guid: baa69047a08a3e64891d14a22487ecd2, type: 2}
@@ -3958,7 +3958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1336615393
@@ -5402,6 +5402,8 @@ MonoBehaviour:
     Space
 
     P
+
+    M
 
 '
   m_isRightToLeft: 0

@@ -120,7 +120,21 @@ public class Tetromino : MonoBehaviour
 
         if (!board.IsValidMovement(pivot))
         {
-            pivot.transform.Rotate(0, 0, 90);
+            // Attempt wall kick by moving right
+            transform.position += new Vector3(1, 0, 0);
+
+            if (!board.IsValidMovement(pivot))
+            {
+                //Attempt wall kick by moving left
+                transform.position += new Vector3(-2, 0, 0);
+
+                if (!board.IsValidMovement(pivot))
+                {
+                    // Place tetromino back in its original place
+                    transform.position += new Vector3(1, 0, 0);
+                    pivot.transform.Rotate(0, 0, 90);
+                }
+            }       
         }
     }
 
