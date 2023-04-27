@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Tetromino : MonoBehaviour
 {
-    private const float fallDelay = 0.8f;
+    private float fallDelay = 1f;
     private const float moveDelay = 0.1f;
     private float fallTime, moveTime;
 
@@ -27,6 +27,8 @@ public class Tetromino : MonoBehaviour
 
         // Get Tetromino's pivot
         pivot = transform.Find("Pivot");
+
+        Falling();
     }
 
     void Update()
@@ -104,6 +106,9 @@ public class Tetromino : MonoBehaviour
         Vector3 currentPos = transform.position;
 
         transform.position += new Vector3(0, -1, 0);
+
+        float level = scoreboard.level;
+        fallDelay = (float)Math.Pow(0.8f - ((level - 1f) * 0.007f), level - 1f);
         fallTime = Time.time + fallDelay;
 
         if (!board.IsValidMovement(pivot))

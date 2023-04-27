@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Game : MonoBehaviour
 {  
@@ -55,6 +57,7 @@ public class Game : MonoBehaviour
 
     public void ResumeButton()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         audioManager.PlaySound("theme");
         isPaused = false;
         pausePanel.SetActive(false);
@@ -63,6 +66,8 @@ public class Game : MonoBehaviour
 
     public void PlayAgainButton()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        isPaused = false;
         audioManager.PlaySound("theme");
         scoreboard.RestartValues();
         gameoverPanel.SetActive(false);
@@ -73,6 +78,7 @@ public class Game : MonoBehaviour
  
     public void HtpButton ()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         if (htpPanel.activeSelf)
         {
             htpPanel.SetActive(false);

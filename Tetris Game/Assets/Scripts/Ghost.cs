@@ -15,7 +15,13 @@ public class Ghost : MonoBehaviour
         gameObject.tag = "Ghost";
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
-        tetromino = GameObject.FindGameObjectWithTag("FallingTetromino").GetComponent<Tetromino>();
+        
+        GameObject tmp = GameObject.FindGameObjectWithTag("FallingTetromino");
+        if (tmp != null)
+        {
+            tetromino = tmp.GetComponent<Tetromino>();
+        }
+        
         pivot = transform.Find("Pivot");
 
         ChangeColor();
@@ -23,6 +29,13 @@ public class Ghost : MonoBehaviour
 
     void LateUpdate()
     {
+
+        if (tetromino == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Reflect();
         Drop();
     }

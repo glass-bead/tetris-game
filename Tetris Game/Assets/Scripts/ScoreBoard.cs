@@ -6,7 +6,7 @@ using UnityEngine;
 public class ScoreBoard : MonoBehaviour
 {
     private int score = 0;
-    private int level = 1;
+    internal int level = 1;
     private int lines = 0;
 
     public TextMeshProUGUI scoreGUI;
@@ -35,12 +35,18 @@ public class ScoreBoard : MonoBehaviour
         
         UpdateScore(200);
 
+        if (lines == 1)
+        {
+            UpdateLevel();
+        }
+
         if ((lines % 10) == 0)
         {
             UpdateLevel();
         }
     }
 
+    // Clean all values
     internal void RestartValues()
     {
         score = 0;

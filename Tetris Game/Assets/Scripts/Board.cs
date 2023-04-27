@@ -12,11 +12,11 @@ public class Board : MonoBehaviour
     [SerializeField] ScoreBoard scoreboard;
     [SerializeField] AudioManager audioManager;
 
-    private static readonly int width = 10, height = 20;
+    private static readonly int width = 10, height = 21;
     private static Transform[,] grid = new Transform[width, height];
     private GameObject currTetromino, nextTetromino, ghostTetromino;
     private List<int> bag, shuffledBag;
-    private Vector3 spawnPos = new(4f, 18f, 0f), nextPos = new(13.5f, 16.5f, 0f);
+    private Vector3 spawnPos = new(4f, 19f, 0f), nextPos = new(13.5f, 16.5f, 0f);
 
     internal void BeginGame()
     {
@@ -72,6 +72,8 @@ public class Board : MonoBehaviour
 
     private void ToppedOut()
     {
+        game.isPaused = true;
+
         // Clean board
         CleanBoard();
 
@@ -186,14 +188,14 @@ public class Board : MonoBehaviour
         grid = new Transform[width, height];
 
         // Destroy all existing tetrominos
-        Destroy(currTetromino);
-        Destroy(ghostTetromino);
-        Destroy(nextTetromino);
-
         GameObject[] tetrominosToDelete = GameObject.FindGameObjectsWithTag("Tetromino");
         foreach (GameObject tetromino in tetrominosToDelete)
         {
             Destroy(tetromino);
         }
+
+        Destroy(currTetromino);
+        Destroy(nextTetromino);
+        Destroy(ghostTetromino);
     }
 }
