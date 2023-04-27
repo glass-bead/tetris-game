@@ -18,8 +18,6 @@ A simple [Tetris](https://en.wikipedia.org/wiki/Tetris)-style game made in Unity
 - Pause button
 
 
-*© Glass Bead 2023*
-
 ## Installation and Usage
 
 After cloning the repository, open the project in Unity.
