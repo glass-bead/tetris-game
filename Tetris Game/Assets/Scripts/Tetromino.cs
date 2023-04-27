@@ -148,11 +148,11 @@ public class Tetromino : MonoBehaviour
         while (board.IsValidMovement(pivot))
         {
             transform.position += new Vector3(0, -1, 0);
-            scoreboard.UpdateScore(10);
+            scoreboard.UpdateScore(2);
         }
 
         transform.position += new Vector3(0, 1, 0);
-        scoreboard.UpdateScore(-10);
+        scoreboard.UpdateScore(-2);
         fallTime = Time.time + moveDelay;
     }
 
